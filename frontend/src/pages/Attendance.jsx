@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useApi } from '../hooks/useApi.js';
+import { useSubjects } from '../contexts/AcademicContext.jsx';
 import { CheckCircle, Check, X, AlertTriangle } from 'lucide-react';
 import ProgressBar from '../components/ProgressBar.jsx';
 
 function Attendance() {
     const { apiFetch } = useApi();
-    const [attendance, setAttendance] = useState([]);
+    const subjectNames = useSubjects();
+    const [backendAttendance, setBackendAttendance] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -15,7 +17,7 @@ function Attendance() {
     async function fetchAttendance() {
         try {
             const data = await apiFetch('/api/attendance');
-            setAttendance(data.attendance || []);
+            setBackendAttendance(data.attendance || []);
         } catch (err) {
             console.error('Failed to load attendance:', err);
         } finally {
@@ -41,21 +43,38 @@ function Attendance() {
         return Math.ceil((required * total - 100 * attended) / (100 - required));
     }
 
+    // Merge local subjects with backend attendance data
+    // Show all subjects from localStorage, use backend data when available
+    const mergedAttendance = subjectNames.map((name) => {
+        const existing = backendAttendance.find((a) => a.subject === name);
+        if (existing) return existing;
+        // Subject exists locally but has no backend attendance record yet
+        return { subject: name, attended: 0, total: 0, required: 75 };
+    });
+
+    // Also include any backend subjects not in the local list (edge case)
+    const localSet = new Set(subjectNames);
+    backendAttendance.forEach((a) => {
+        if (!localSet.has(a.subject)) {
+            mergedAttendance.push(a);
+        }
+    });
+
     if (loading) return <div className="page-loading">Loading attendance...</div>;
 
     return (
         <div>
             <h2 className="page-title">Attendance Tracker</h2>
 
-            {attendance.length === 0 ? (
+            {mergedAttendance.length === 0 ? (
                 <div className="empty-state">
                     <p className="empty-icon"><CheckCircle size={48} /></p>
                     <p>No subjects configured</p>
-                    <p className="empty-sub">Set up your subjects in your profile first</p>
+                    <p className="empty-sub">Add subjects in the Subjects tab first</p>
                 </div>
             ) : (
                 <div className="card-list">
-                    {attendance.map((att) => {
+                    {mergedAttendance.map((att) => {
                         const pct = att.total > 0 ? ((att.attended / att.total) * 100).toFixed(1) : '--';
                         const isShort = att.total > 0 && parseFloat(pct) < att.required;
                         const needed = att.total > 0 ? calculateNeeded(att.attended, att.total, att.required) : 0;

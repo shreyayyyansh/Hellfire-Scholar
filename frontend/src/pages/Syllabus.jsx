@@ -1,36 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useApi } from '../hooks/useApi.js';
 import { BookOpen } from 'lucide-react';
+import { useSubjects } from '../contexts/AcademicContext.jsx';
 import syllabusData from '../data/syllabusData.js';
 import ProgressBar from '../components/ProgressBar.jsx';
 
 function Syllabus() {
     const { apiFetch } = useApi();
-    const [subjects, setSubjects] = useState([]);
+    const subjects = useSubjects();
     const [selectedSubject, setSelectedSubject] = useState('');
     const [completedTopics, setCompletedTopics] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
+    // Auto-select first subject when subject list loads or changes
     useEffect(() => {
-        loadSubjects();
-    }, []);
+        if (subjects.length > 0 && !subjects.includes(selectedSubject)) {
+            setSelectedSubject(subjects[0]);
+        }
+    }, [subjects]);
 
     useEffect(() => {
         if (selectedSubject) loadProgress();
     }, [selectedSubject]);
-
-    async function loadSubjects() {
-        try {
-            const data = await apiFetch('/api/user/profile');
-            const subs = data.user?.selectedSubjects || [];
-            setSubjects(subs);
-            if (subs.length > 0) setSelectedSubject(subs[0]);
-        } catch (err) {
-            console.error('Failed to load subjects:', err);
-        } finally {
-            setLoading(false);
-        }
-    }
 
     async function loadProgress() {
         try {

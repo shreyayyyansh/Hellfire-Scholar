@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useApi } from '../hooks/useApi.js';
 import { Plus, Calendar, Trash2 } from 'lucide-react';
+import { useSubjects } from '../contexts/AcademicContext.jsx';
 import Modal from '../components/Modal.jsx';
 
 function Assignments() {
     const { apiFetch } = useApi();
+    const subjects = useSubjects();
     const [assignments, setAssignments] = useState([]);
-    const [subjects, setSubjects] = useState([]);
     const [loading, setLoading] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
     const [filter, setFilter] = useState('all');
@@ -20,15 +21,7 @@ function Assignments() {
 
     useEffect(() => {
         fetchAssignments();
-        fetchSubjects();
     }, []);
-
-    async function fetchSubjects() {
-        try {
-            const data = await apiFetch('/api/user/profile');
-            setSubjects(data.user?.selectedSubjects || []);
-        } catch { }
-    }
 
     async function fetchAssignments() {
         try {

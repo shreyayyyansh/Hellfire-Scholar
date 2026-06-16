@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useApi } from '../hooks/useApi.js';
 import { Plus, FileText, Trash2 } from 'lucide-react';
+import { useSubjects } from '../contexts/AcademicContext.jsx';
 import Modal from '../components/Modal.jsx';
 
 function Notes() {
     const { apiFetch, API_URL } = useApi();
+    const subjects = useSubjects();
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
     const [filter, setFilter] = useState('all');
-    const [subjects, setSubjects] = useState([]);
 
     // Upload form state
     const [title, setTitle] = useState('');
@@ -20,21 +21,11 @@ function Notes() {
 
     useEffect(() => {
         fetchNotes();
-        fetchSubjects();
     }, []);
 
     useEffect(() => {
         fetchNotes();
     }, [filter]);
-
-    async function fetchSubjects() {
-        try {
-            const data = await apiFetch('/api/user/profile');
-            setSubjects(data.user?.selectedSubjects || []);
-        } catch (err) {
-            console.error('Failed to load subjects:', err);
-        }
-    }
 
     async function fetchNotes() {
         try {

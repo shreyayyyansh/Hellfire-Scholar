@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Plus, Trash2, BookOpen, BookMarked } from 'lucide-react';
 import { useAcademic } from '../contexts/AcademicContext.jsx';
 import Modal from '../components/Modal.jsx';
+import ecedDefaults from '../data/ecedDefaults.js';
 import './Subjects.css';
 
 function getStorageKey(branch, semester) {
@@ -22,8 +23,25 @@ function saveSubjects(branch, semester, subjects) {
     localStorage.setItem(getStorageKey(branch, semester), JSON.stringify(subjects));
 }
 
+/** Check if defaults have already been seeded for this branch+semester */
+function hasBeenSeeded(branch, semester) {
+    return localStorage.getItem(`subjects_seeded_${branch}_${semester}`) === '1';
+}
+
+function markSeeded(branch, semester) {
+    localStorage.setItem(`subjects_seeded_${branch}_${semester}`, '1');
+}
+
+/** Returns default subjects for a given branch and semester (if any) */
+function getDefaults(branch, semester) {
+    if (branch === 'Electronics and Communication Engineering') {
+        return ecedDefaults[semester] || [];
+    }
+    return [];
+}
+
 function Subjects() {
-    const { branch, semester } = useAcademic();
+    const { branch, semester, notifySubjectsChanged } = useAcademic();
     const [subjects, setSubjects] = useState([]);
     const [addModalOpen, setAddModalOpen] = useState(false);
     const [deleteTarget, setDeleteTarget] = useState(null);
@@ -31,7 +49,35 @@ function Subjects() {
     const [newCode, setNewCode] = useState('');
 
     useEffect(() => {
-        setSubjects(loadSubjects(branch, semester));
+        if (!branch || !semester) return;
+
+        // Seed defaults if this branch+semester hasn't been seeded yet
+        if (!hasBeenSeeded(branch, semester)) {
+            const defaults = getDefaults(branch, semester);
+            if (defaults.length > 0) {
+                const existing = loadSubjects(branch, semester);
+                if (existing.length === 0) {
+                    const seeded = defaults.map((d) => ({
+                        id: `default_${d.code}_${Date.now()}`,
+                        name: d.name,
+                        code: d.code,
+                        branch,
+                        semester,
+                        createdAt: Date.now(),
+                    }));
+                    saveSubjects(branch, semester, seeded);
+                    setSubjects(seeded);
+                    notifySubjectsChanged();
+                } else {
+                    setSubjects(existing);
+                }
+            } else {
+                setSubjects(loadSubjects(branch, semester));
+            }
+            markSeeded(branch, semester);
+        } else {
+            setSubjects(loadSubjects(branch, semester));
+        }
     }, [branch, semester]);
 
     function handleAdd() {
@@ -47,6 +93,7 @@ function Subjects() {
         const updated = [...subjects, subject];
         setSubjects(updated);
         saveSubjects(branch, semester, updated);
+        notifySubjectsChanged();
         setNewName('');
         setNewCode('');
         setAddModalOpen(false);
@@ -57,6 +104,7 @@ function Subjects() {
         const updated = subjects.filter((s) => s.id !== deleteTarget.id);
         setSubjects(updated);
         saveSubjects(branch, semester, updated);
+        notifySubjectsChanged();
         setDeleteTarget(null);
     }
 

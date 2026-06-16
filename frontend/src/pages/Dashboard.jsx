@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useApi } from '../hooks/useApi.js';
 import { TrendingDown, ClipboardList, CheckCircle } from 'lucide-react';
+import { useSubjects } from '../contexts/AcademicContext.jsx';
 import ProgressBar from '../components/ProgressBar.jsx';
 import './Dashboard.css';
 
 function Dashboard() {
     const { apiFetch } = useApi();
+    const localSubjects = useSubjects();
     const [stats, setStats] = useState({
         totalNotes: 0,
         pendingTasks: 0,
@@ -33,7 +35,6 @@ function Dashboard() {
             const attendance = attData.attendance || [];
 
             const pending = assignments.filter((a) => a.status === 'pending');
-            const subjects = new Set(attendance.map((a) => a.subject));
 
             // Calculate average attendance
             let avg = '--';
@@ -49,7 +50,6 @@ function Dashboard() {
                 totalNotes: notes.length,
                 pendingTasks: pending.length,
                 avgAttendance: avg,
-                subjectCount: subjects.size,
             });
 
             // Attendance alerts
@@ -123,7 +123,7 @@ function Dashboard() {
                 </div>
                 <div className="stat-card">
                     <div className="stat-label">Subjects</div>
-                    <div className="stat-value stat-subjects">{stats.subjectCount}</div>
+                    <div className="stat-value stat-subjects">{localSubjects.length}</div>
                 </div>
             </div>
 
