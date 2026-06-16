@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useApi } from '../hooks/useApi.js';
+import { Plus, Calendar, Trash2 } from 'lucide-react';
 import Modal from '../components/Modal.jsx';
 
 function Assignments() {
@@ -106,7 +107,7 @@ function Assignments() {
             <div className="page-header">
                 <h2 className="page-title">Assignments & Quizzes</h2>
                 <button className="btn btn-primary" onClick={() => setModalOpen(true)}>
-                    ➕ Add Assignment
+                    <Plus size={18} /> Add Assignment
                 </button>
             </div>
 
@@ -122,7 +123,7 @@ function Assignments() {
 
             {filtered.length === 0 ? (
                 <div className="empty-state">
-                    <p className="empty-icon">📅</p>
+                    <p className="empty-icon"><Calendar size={48} /></p>
                     <p>No assignments yet</p>
                     <p className="empty-sub">Click "Add Assignment" to track your coursework</p>
                 </div>
@@ -143,10 +144,10 @@ function Assignments() {
                                         {a.status.charAt(0).toUpperCase() + a.status.slice(1)}
                                     </span>
                                     {a.marks !== null && a.marks !== undefined && (
-                                        <div style={{ color: 'var(--accent)', fontWeight: 700 }}>{a.marks}/100</div>
+                                        <div style={{ color: 'var(--color-accent)', fontWeight: 700 }}>{a.marks}/100</div>
                                     )}
                                     <button className="btn btn-danger btn-sm" onClick={() => handleDelete(a._id)}>
-                                        Delete
+                                        <Trash2 size={14} /> Delete
                                     </button>
                                 </div>
                             </div>

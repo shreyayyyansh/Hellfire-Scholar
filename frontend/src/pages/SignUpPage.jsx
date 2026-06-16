@@ -4,7 +4,6 @@ import './AuthPage.css';
 function SignUpPage() {
     return (
         <div className="auth-page">
-            <div className="auth-glow"></div>
             <SignUp
                 routing="path"
                 path="/sign-up"

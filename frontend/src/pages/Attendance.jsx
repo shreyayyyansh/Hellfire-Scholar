@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useApi } from '../hooks/useApi.js';
+import { CheckCircle, Check, X, AlertTriangle } from 'lucide-react';
 import ProgressBar from '../components/ProgressBar.jsx';
 
 function Attendance() {
@@ -48,7 +49,7 @@ function Attendance() {
 
             {attendance.length === 0 ? (
                 <div className="empty-state">
-                    <p className="empty-icon">✅</p>
+                    <p className="empty-icon"><CheckCircle size={48} /></p>
                     <p>No subjects configured</p>
                     <p className="empty-sub">Set up your subjects in your profile first</p>
                 </div>
@@ -68,13 +69,13 @@ function Attendance() {
                                             className="btn btn-success btn-sm"
                                             onClick={() => markAttendance(att.subject, 'present')}
                                         >
-                                            ✓ Present
+                                            <Check size={14} /> Present
                                         </button>
                                         <button
                                             className="btn btn-danger btn-sm"
                                             onClick={() => markAttendance(att.subject, 'absent')}
                                         >
-                                            ✗ Absent
+                                            <X size={14} /> Absent
                                         </button>
                                     </div>
                                 </div>
@@ -86,7 +87,7 @@ function Attendance() {
                                     <div style={{ textAlign: 'right' }}>
                                         <div
                                             className="attendance-pct"
-                                            style={{ color: isShort ? 'var(--danger)' : att.total > 0 ? 'var(--success)' : 'var(--text-secondary)' }}
+                                            style={{ color: isShort ? 'var(--color-destructive)' : att.total > 0 ? 'var(--color-accent)' : 'var(--color-text-secondary)' }}
                                         >
                                             {pct}{att.total > 0 ? '%' : ''}
                                         </div>
@@ -97,13 +98,13 @@ function Attendance() {
                                 {att.total > 0 && (
                                     <ProgressBar
                                         value={parseFloat(pct)}
-                                        color={isShort ? 'var(--danger)' : 'var(--success)'}
+                                        color={isShort ? 'var(--color-destructive)' : 'var(--color-accent)'}
                                     />
                                 )}
 
                                 {isShort && (
                                     <div className="attendance-alert">
-                                        ⚠️ Attend {needed} more class{needed === 1 ? '' : 'es'} to meet minimum requirement
+                                        <AlertTriangle size={14} /> Attend {needed} more class{needed === 1 ? '' : 'es'} to meet minimum requirement
                                     </div>
                                 )}
                             </div>

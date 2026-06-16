@@ -1,13 +1,16 @@
 import { useAuth } from '@clerk/react';
 import { Navigate, Outlet } from 'react-router-dom';
+import { useAcademic } from '../contexts/AcademicContext.jsx';
+import OnboardingScreen from '../pages/OnboardingScreen.jsx';
 import Sidebar from './Sidebar.jsx';
 import Header from './Header.jsx';
 import './ProtectedLayout.css';
 
 function ProtectedLayout() {
     const { isSignedIn, isLoaded } = useAuth();
+    const { onboardingComplete, loaded } = useAcademic();
 
-    if (!isLoaded) {
+    if (!isLoaded || !loaded) {
         return (
             <div className="loading-screen">
                 <div className="loading-spinner"></div>
@@ -18,6 +21,10 @@ function ProtectedLayout() {
 
     if (!isSignedIn) {
         return <Navigate to="/sign-in" replace />;
+    }
+
+    if (!onboardingComplete) {
+        return <OnboardingScreen />;
     }
 
     return (

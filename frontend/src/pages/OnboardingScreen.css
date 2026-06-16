@@ -1,0 +1,119 @@
+.onboarding {
+    min-height: 100vh;
+    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.onboarding-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.onboarding-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.onboarding-logo-icon {
+    color: var(--color-accent);
+}
+
+.onboarding-logo-text {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.onboarding-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.onboarding-subtitle {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.onboarding-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+}
+
+.onboarding-option {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    font-family: inherit;
+    text-align: left;
+    width: 100%;
+}
+
+.onboarding-option:hover {
+    border-color: var(--color-text-secondary);
+}
+
+.onboarding-option.selected {
+    background: var(--color-active);
+    border-color: var(--color-active);
+    color: var(--color-active-text);
+}
+
+.semester-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 32px;
+}
+
+.semester-option {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    font-family: inherit;
+    text-align: center;
+}
+
+.semester-option:hover {
+    border-color: var(--color-text-secondary);
+}
+
+.semester-option.selected {
+    background: var(--color-active);
+    border-color: var(--color-active);
+    color: var(--color-active-text);
+}
+
+.onboarding-action {
+    display: flex;
+    justify-content: center;
+}
+
+.onboarding-action .btn {
+    width: 100%;
+    justify-content: center;
+}

@@ -1,0 +1,116 @@
+.subjects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.subject-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    transition: border-color 0.2s ease;
+}
+
+.subject-item:hover {
+    border-color: var(--color-text-secondary);
+}
+
+.subject-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.subject-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.subject-code {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.subject-delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-destructive);
+    transition: background 0.15s ease;
+}
+
+.subject-delete-btn:hover {
+    background: rgba(192, 57, 43, 0.08);
+}
+
+/* Empty state */
+.subjects-empty {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.subjects-empty-icon {
+    color: var(--color-inactive);
+    margin-bottom: 16px;
+}
+
+.subjects-empty-title {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    margin-bottom: 4px;
+}
+
+.subjects-empty-sub {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+/* Modal form */
+.subject-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.subject-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.subject-form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+}
+
+.subject-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+/* Delete confirm modal */
+.delete-confirm-text {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.delete-confirm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}

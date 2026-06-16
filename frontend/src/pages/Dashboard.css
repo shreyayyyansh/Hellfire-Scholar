@@ -10,8 +10,8 @@
 }
 
 .stat-card {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 14px;
     padding: 24px;
     transition: transform 0.2s, border-color 0.2s;
@@ -19,12 +19,12 @@
 
 .stat-card:hover {
     transform: translateY(-2px);
-    border-color: var(--border-hover);
+    border-color: var(--color-text-secondary);
 }
 
 .stat-label {
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -34,6 +34,23 @@
 .stat-value {
     font-size: 32px;
     font-weight: 800;
+    color: var(--color-text-primary);
+}
+
+.stat-value.stat-notes {
+    color: var(--color-accent);
+}
+
+.stat-value.stat-tasks {
+    color: var(--color-destructive);
+}
+
+.stat-value.stat-attendance {
+    color: var(--color-active);
+}
+
+.stat-value.stat-subjects {
+    color: var(--color-text-primary);
 }
 
 .alerts-section {
@@ -47,8 +64,8 @@
 }
 
 .alert-group {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 14px;
     padding: 20px;
 }
@@ -56,8 +73,11 @@
 .alert-group-title {
     font-size: 15px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--color-text-primary);
     margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .alert-chip {
@@ -71,27 +91,27 @@
 }
 
 .alert-chip.ok {
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    color: var(--success);
+    background: rgba(64, 145, 108, 0.08);
+    border: 1px solid rgba(64, 145, 108, 0.2);
+    color: var(--color-accent);
 }
 
 .alert-chip.danger {
-    background: rgba(220, 38, 38, 0.1);
-    border: 1px solid rgba(220, 38, 38, 0.2);
-    color: #fca5a5;
+    background: rgba(192, 57, 43, 0.08);
+    border: 1px solid rgba(192, 57, 43, 0.2);
+    color: var(--color-destructive);
 }
 
 .alert-chip.warning {
-    background: rgba(234, 179, 8, 0.1);
-    border: 1px solid rgba(234, 179, 8, 0.2);
-    color: #fde047;
+    background: rgba(180, 140, 20, 0.08);
+    border: 1px solid rgba(180, 140, 20, 0.2);
+    color: #8B6914;
 }
 
 .alert-chip.info {
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    color: #93c5fd;
+    background: rgba(45, 106, 79, 0.08);
+    border: 1px solid rgba(45, 106, 79, 0.2);
+    color: var(--color-active);
 }
 
 .alert-chip strong {

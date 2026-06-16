@@ -1,7 +1,7 @@
 .sidebar {
     width: 260px;
-    background: var(--bg-secondary);
-    border-right: 1px solid var(--border);
+    background: var(--color-surface);
+    border-right: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
     padding: 20px 0;
@@ -13,18 +13,20 @@
     align-items: center;
     gap: 10px;
     padding: 0 24px 24px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-border);
     margin-bottom: 16px;
 }
 
 .sidebar-logo-icon {
-    font-size: 24px;
+    display: flex;
+    align-items: center;
+    color: var(--color-accent);
 }
 
 .sidebar-logo-text {
     font-size: 18px;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--color-text-primary);
 }
 
 .sidebar-nav {
@@ -38,9 +40,9 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 16px;
+    padding: 10px 16px;
     border-radius: 10px;
-    color: var(--text-secondary);
+    color: var(--color-inactive);
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
@@ -48,18 +50,25 @@
 }
 
 .sidebar-link:hover {
-    background: rgba(249, 115, 22, 0.08);
-    color: var(--text-primary);
+    background: rgba(45, 106, 79, 0.06);
+    color: var(--color-text-primary);
 }
 
 .sidebar-link-active {
-    background: rgba(249, 115, 22, 0.12);
-    color: var(--accent) !important;
+    background-color: var(--color-active);
+    color: var(--color-active-text) !important;
     font-weight: 600;
+    padding: 10px 16px;
+    border-radius: 10px;
+}
+
+.sidebar-link-active:hover {
+    background-color: var(--color-active);
 }
 
 .sidebar-link-icon {
-    font-size: 18px;
+    display: flex;
+    align-items: center;
 }
 
 @media (max-width: 768px) {
@@ -67,9 +76,11 @@
         width: 100%;
         flex-direction: row;
         border-right: none;
-        border-bottom: 1px solid var(--border);
+        border-top: 1px solid var(--color-border);
+        border-bottom: none;
         padding: 12px;
         overflow-x: auto;
+        order: 1;
     }
 
     .sidebar-logo {
@@ -84,7 +95,7 @@
 
     .sidebar-link {
         white-space: nowrap;
-        padding: 10px 14px;
+        padding: 8px 14px;
         font-size: 13px;
     }
 }

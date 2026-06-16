@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useApi } from '../hooks/useApi.js';
+import { BookOpen } from 'lucide-react';
 import syllabusData from '../data/syllabusData.js';
 import ProgressBar from '../components/ProgressBar.jsx';
 
@@ -80,7 +81,7 @@ function Syllabus() {
 
             {topics.length === 0 ? (
                 <div className="empty-state">
-                    <p className="empty-icon">📚</p>
+                    <p className="empty-icon"><BookOpen size={48} /></p>
                     <p>No syllabus data for this subject</p>
                 </div>
             ) : (
@@ -105,10 +106,10 @@ function Syllabus() {
                         })}
                     </div>
 
-                    <div style={{ marginTop: 24, paddingTop: 20, borderTop: '1px solid var(--border)' }}>
+                    <div style={{ marginTop: 24, paddingTop: 20, borderTop: '1px solid var(--color-border)' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
-                            <span style={{ color: 'var(--text-secondary)' }}>Progress:</span>
-                            <span style={{ color: 'var(--accent)', fontWeight: 700, fontSize: 18 }}>
+                            <span style={{ color: 'var(--color-text-secondary)' }}>Progress:</span>
+                            <span style={{ color: 'var(--color-accent)', fontWeight: 700, fontSize: 18 }}>
                                 {completedCount}/{totalCount} Units
                             </span>
                         </div>

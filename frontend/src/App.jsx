@@ -8,6 +8,8 @@ import Notes from './pages/Notes.jsx';
 import Syllabus from './pages/Syllabus.jsx';
 import Assignments from './pages/Assignments.jsx';
 import Attendance from './pages/Attendance.jsx';
+import Settings from './pages/Settings.jsx';
+import Subjects from './pages/Subjects.jsx';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Route path="/app/syllabus" element={<Syllabus />} />
         <Route path="/app/assignments" element={<Assignments />} />
         <Route path="/app/attendance" element={<Attendance />} />
+        <Route path="/app/settings" element={<Settings />} />
+        <Route path="/app/subjects" element={<Subjects />} />
       </Route>
     </Routes>
   );

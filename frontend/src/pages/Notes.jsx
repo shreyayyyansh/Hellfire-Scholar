@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useApi } from '../hooks/useApi.js';
+import { Plus, FileText, Trash2 } from 'lucide-react';
 import Modal from '../components/Modal.jsx';
 
 function Notes() {
@@ -99,7 +100,7 @@ function Notes() {
             <div className="page-header">
                 <h2 className="page-title">Notes & Resources</h2>
                 <button className="btn btn-primary" onClick={() => setModalOpen(true)}>
-                    ➕ Upload
+                    <Plus size={18} /> Upload
                 </button>
             </div>
 
@@ -115,7 +116,7 @@ function Notes() {
 
             {notes.length === 0 ? (
                 <div className="empty-state">
-                    <p className="empty-icon">📄</p>
+                    <p className="empty-icon"><FileText size={48} /></p>
                     <p>No notes found</p>
                     <p className="empty-sub">Upload notes to get started</p>
                 </div>
@@ -148,7 +149,7 @@ function Notes() {
                                         handleDelete(note._id);
                                     }}
                                 >
-                                    Delete
+                                    <Trash2 size={14} /> Delete
                                 </button>
                             </div>
                         </div>

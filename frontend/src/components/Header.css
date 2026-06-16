@@ -3,18 +3,18 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 32px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
 }
 
 .header-greeting {
     font-size: 18px;
     font-weight: 500;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
 }
 
 .header-name {
-    color: var(--accent);
+    color: var(--color-accent);
     font-weight: 700;
 }
 

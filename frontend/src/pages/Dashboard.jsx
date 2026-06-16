@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useApi } from '../hooks/useApi.js';
+import { TrendingDown, ClipboardList, CheckCircle } from 'lucide-react';
 import ProgressBar from '../components/ProgressBar.jsx';
 import './Dashboard.css';
 
@@ -110,19 +111,19 @@ function Dashboard() {
             <div className="stats-grid">
                 <div className="stat-card">
                     <div className="stat-label">Total Notes</div>
-                    <div className="stat-value" style={{ color: '#f97316' }}>{stats.totalNotes}</div>
+                    <div className="stat-value stat-notes">{stats.totalNotes}</div>
                 </div>
                 <div className="stat-card">
                     <div className="stat-label">Pending Tasks</div>
-                    <div className="stat-value" style={{ color: '#dc2626' }}>{stats.pendingTasks}</div>
+                    <div className="stat-value stat-tasks">{stats.pendingTasks}</div>
                 </div>
                 <div className="stat-card">
                     <div className="stat-label">Avg Attendance</div>
-                    <div className="stat-value" style={{ color: '#10b981' }}>{stats.avgAttendance}</div>
+                    <div className="stat-value stat-attendance">{stats.avgAttendance}</div>
                 </div>
                 <div className="stat-card">
                     <div className="stat-label">Subjects</div>
-                    <div className="stat-value" style={{ color: '#3b82f6' }}>{stats.subjectCount}</div>
+                    <div className="stat-value stat-subjects">{stats.subjectCount}</div>
                 </div>
             </div>
 
@@ -131,9 +132,9 @@ function Dashboard() {
 
                 <div className="alerts-grid">
                     <div className="alert-group">
-                        <h4 className="alert-group-title">📉 Attendance Alerts</h4>
+                        <h4 className="alert-group-title"><TrendingDown size={18} /> Attendance Alerts</h4>
                         {attendanceAlerts.length === 0 ? (
-                            <div className="alert-chip ok">All subjects on track ✓</div>
+                            <div className="alert-chip ok"><CheckCircle size={14} /> All subjects on track</div>
                         ) : (
                             attendanceAlerts.map((a, i) => (
                                 <div key={i} className="alert-chip danger">
@@ -145,9 +146,9 @@ function Dashboard() {
                     </div>
 
                     <div className="alert-group">
-                        <h4 className="alert-group-title">📋 Task Alerts</h4>
+                        <h4 className="alert-group-title"><ClipboardList size={18} /> Task Alerts</h4>
                         {taskAlerts.length === 0 ? (
-                            <div className="alert-chip ok">No pending tasks ✓</div>
+                            <div className="alert-chip ok"><CheckCircle size={14} /> No pending tasks</div>
                         ) : (
                             taskAlerts.map((a, i) => (
                                 <div key={i} className={`alert-chip ${a.type}`}>
