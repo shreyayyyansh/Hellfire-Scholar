@@ -1,3 +1,4 @@
+import Chatbot from './components/Chatbot';
 import { Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing.jsx';
 import SignInPage from './pages/SignInPage.jsx';
@@ -13,6 +14,7 @@ import Subjects from './pages/Subjects.jsx';
 
 function App() {
   return (
+    <>
     <Routes>
       {/* Public routes */}
       <Route path="/" element={<Landing />} />
@@ -30,6 +32,8 @@ function App() {
         <Route path="/app/subjects" element={<Subjects />} />
       </Route>
     </Routes>
+    <Chatbot />
+    </>
   );
 }
 

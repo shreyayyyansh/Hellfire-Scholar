@@ -24,6 +24,8 @@ app.use(clerkMiddleware());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ===== Routes =====
+const chatbotRoute = require('./routes/chatbot');
+app.use('/api/chatbot', chatbotRoute);
 app.use('/api/user', userRoutes);
 app.use('/api/notes', notesRoutes);
 app.use('/api/assignments', assignmentRoutes);
