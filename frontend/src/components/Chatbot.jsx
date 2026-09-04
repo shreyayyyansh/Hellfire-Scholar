@@ -1,5 +1,6 @@
 import './Chatbot.css';
 import React, { useState } from 'react';
+import { MessageCircle, X } from 'lucide-react';
 
 export default function Chatbot() {
     const [messages, setMessages] = useState([]);
@@ -23,7 +24,12 @@ export default function Chatbot() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: input }),
             });
+            
             const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.error || "Failed to fetch response");
+            }
             
             const botMessage = { text: data.reply, sender: 'bot' };
             setMessages((prev) => [...prev, botMessage]);
@@ -39,7 +45,7 @@ export default function Chatbot() {
     return (
         <>
             <button className="chatbot-toggle-btn" onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? '✕' : '💬'}
+                {isOpen ? <X size={28} /> : <MessageCircle size={28} />}
             </button>
 
             <div className={`chatbot-container ${isOpen ? '' : 'hidden'}`}>
