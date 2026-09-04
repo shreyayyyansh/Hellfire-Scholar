@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { GraduationCap, BookOpen, Calendar, ChevronRight } from 'lucide-react';
+import { GraduationCap, BookOpen, Calendar, ChevronRight, Moon } from 'lucide-react';
 import { UserButton, useUser } from '@clerk/react';
 import { useAcademic } from '../contexts/AcademicContext.jsx';
+import { useTheme } from '../contexts/ThemeContext.jsx';
 import Modal from '../components/Modal.jsx';
 import './Settings.css';
 
@@ -17,6 +18,7 @@ const BRANCHES = [
 function Settings() {
     const { user } = useUser();
     const { branch, semester, setBranch, setSemester } = useAcademic();
+    const { theme, toggleTheme } = useTheme();
     const [branchModalOpen, setBranchModalOpen] = useState(false);
     const [semesterModalOpen, setSemesterModalOpen] = useState(false);
 
@@ -79,6 +81,25 @@ function Settings() {
                             <span className="settings-account-email">
                                 {user?.primaryEmailAddress?.emailAddress || ''}
                             </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Preferences */}
+            <div className="settings-section">
+                <div className="settings-section-title">
+                    Preferences
+                </div>
+                <div className="settings-card">
+                    <div className="settings-row" onClick={toggleTheme}>
+                        <div className="settings-row-left">
+                            <Moon size={18} />
+                            <span>Dark Mode</span>
+                        </div>
+                        <div className="settings-row-right">
+                            <span>{theme === 'dark' ? 'On' : 'Off'}</span>
+                            <ChevronRight size={18} />
                         </div>
                     </div>
                 </div>

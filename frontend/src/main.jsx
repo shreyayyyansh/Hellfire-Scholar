@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { ClerkProvider } from '@clerk/react';
 import { AcademicProvider } from './contexts/AcademicContext.jsx';
+import { ThemeProvider } from './contexts/ThemeContext.jsx';
 import App from './App.jsx';
 import './index.css';
 
@@ -12,9 +13,11 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ClerkProvider publishableKey={clerkPubKey}>
       <BrowserRouter>
-        <AcademicProvider>
-          <App />
-        </AcademicProvider>
+        <ThemeProvider>
+          <AcademicProvider>
+            <App />
+          </AcademicProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </ClerkProvider>
   </StrictMode>
