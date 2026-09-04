@@ -17,7 +17,8 @@ export default function Chatbot() {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:5000/api/chatbot/chat', {
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+            const response = await fetch(`${API_URL}/api/chatbot/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: input }),
@@ -37,12 +38,10 @@ export default function Chatbot() {
 
     return (
         <>
-            {/* The Floating Green Circle Icon at the top */}
             <button className="chatbot-toggle-btn" onClick={() => setIsOpen(!isOpen)}>
                 {isOpen ? '✕' : '💬'}
             </button>
 
-            {/* The White & Green Chat Window */}
             <div className={`chatbot-container ${isOpen ? '' : 'hidden'}`}>
                 <div className="chatbot-header">
                     <span>Hellfire Assistant</span>

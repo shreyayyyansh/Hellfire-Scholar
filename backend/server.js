@@ -39,18 +39,18 @@ app.get('/ping', (req, res) => res.json({ ok: true, msg: 'Server is running' }))
 const PORT = process.env.PORT || 4000;
 const MONGO_URI = process.env.MONGO_URI;
 
-if (!MONGO_URI) {
-  console.error('❌ MONGO_URI is not defined in .env');
-  process.exit(1);
-}
+app.listen(PORT, () => {
+  console.log(` Server running on http://localhost:${PORT}`);
+});
 
-mongoose
-  .connect(MONGO_URI)
-  .then(() => {
-    console.log('✅ Connected to MongoDB');
-    app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
-  })
-  .catch((err) => {
-    console.error('❌ MongoDB connection error:', err.message || err);
-    process.exit(1);
-  });
+if (!MONGO_URI) {
+  console.warn(' MONGO_URI is not defined in .env');
+} else {
+  mongoose
+    .connect(MONGO_URI)
+    .then(() => console.log(' Connected to MongoDB'))
+    .catch((err) => {
+      console.error('❌ MongoDB connection error:', err.message || err);
+      console.warn(' Server will continue running without MongoDB, but DB endpoints will fail.');
+    });
+}

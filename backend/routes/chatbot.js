@@ -13,9 +13,9 @@ router.post('/chat', async (req, res) => {
             return res.status(400).json({ error: "Message is required" });
         }
 
-        // Call the Gemini 2.5 Flash model
+        // Call the Gemini model
         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
+            model: 'gemini-3.6-flash',
             contents: message,
         });
 
