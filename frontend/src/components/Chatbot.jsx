@@ -1,5 +1,6 @@
 import './Chatbot.css';
 import React, { useState } from 'react';
+import { MessageCircle, X } from 'lucide-react';
 
 export default function Chatbot() {
     const [messages, setMessages] = useState([]);
@@ -17,12 +18,18 @@ export default function Chatbot() {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:5000/api/chatbot/chat', {
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+            const response = await fetch(`${API_URL}/api/chatbot/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: input }),
             });
+            
             const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.error || "Failed to fetch response");
+            }
             
             const botMessage = { text: data.reply, sender: 'bot' };
             setMessages((prev) => [...prev, botMessage]);
@@ -37,12 +44,10 @@ export default function Chatbot() {
 
     return (
         <>
-            {/* The Floating Green Circle Icon at the top */}
             <button className="chatbot-toggle-btn" onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? '✕' : '💬'}
+                {isOpen ? <X size={28} /> : <MessageCircle size={28} />}
             </button>
 
-            {/* The White & Green Chat Window */}
             <div className={`chatbot-container ${isOpen ? '' : 'hidden'}`}>
                 <div className="chatbot-header">
                     <span>Hellfire Assistant</span>
