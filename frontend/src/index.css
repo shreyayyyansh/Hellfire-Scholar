@@ -14,6 +14,19 @@
   --color-destructive:   #C0392B;
 }
 
+[data-theme="dark"] {
+  --color-bg:            #121212;
+  --color-surface:       #1E1E1E;
+  --color-text-primary:  #EFEFEF;
+  --color-text-secondary:#A0A0A0;
+  --color-border:        #333333;
+  --color-active:        #43A047;
+  --color-active-text:   #FFFFFF;
+  --color-inactive:      #5A5A5A;
+  --color-accent:        #4CAF50;
+  --color-destructive:   #E57373;
+}
+
 /* ===== Reset ===== */
 *,
 *::before,

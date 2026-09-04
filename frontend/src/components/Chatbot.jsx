@@ -1,12 +1,14 @@
 import './Chatbot.css';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 
 export default function Chatbot() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
-    const [isOpen, setIsOpen] = useState(false); // Handles the pop-up toggle
+    const [isOpen, setIsOpen] = useState(false);
+    
+    const containerRef = useRef(null);
 
     const handleSend = async (e) => {
         e.preventDefault();
@@ -42,13 +44,39 @@ export default function Chatbot() {
         }
     };
 
+    const handleMouseDown = (e) => {
+        e.preventDefault();
+        const startX = e.clientX;
+        const startY = e.clientY;
+        const startWidth = containerRef.current.offsetWidth;
+        const startHeight = containerRef.current.offsetHeight;
+
+        const handleMouseMove = (e) => {
+            const newWidth = startWidth + (startX - e.clientX);
+            const newHeight = startHeight + (startY - e.clientY);
+            
+            // Constrain sizes
+            containerRef.current.style.width = `${Math.max(300, Math.min(newWidth, window.innerWidth * 0.9))}px`;
+            containerRef.current.style.height = `${Math.max(400, Math.min(newHeight, window.innerHeight * 0.8))}px`;
+        };
+
+        const handleMouseUp = () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+        };
+
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+    };
+
     return (
         <>
             <button className="chatbot-toggle-btn" onClick={() => setIsOpen(!isOpen)}>
                 {isOpen ? <X size={28} /> : <MessageCircle size={28} />}
             </button>
 
-            <div className={`chatbot-container ${isOpen ? '' : 'hidden'}`}>
+            <div ref={containerRef} className={`chatbot-container ${isOpen ? '' : 'hidden'}`}>
+                <div className="chatbot-resize-handle" onMouseDown={handleMouseDown} />
                 <div className="chatbot-header">
                     <span>Hellfire Assistant</span>
                 </div>
